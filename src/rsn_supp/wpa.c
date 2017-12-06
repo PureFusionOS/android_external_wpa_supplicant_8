@@ -751,7 +751,6 @@ static int wpa_supplicant_install_ptk(struct wpa_sm *sm,
 
 	/* TK is not needed anymore in supplicant */
 	os_memset(sm->ptk.tk, 0, WPA_TK_MAX_LEN);
-	sm->ptk.tk_len = 0;
 	sm->ptk.installed = 1;
 
 	if (sm->wpa_ptk_rekey) {
@@ -4153,7 +4152,6 @@ int fils_process_assoc_resp(struct wpa_sm *sm, const u8 *resp, size_t len)
 	 * takes care of association frame encryption/decryption. */
 	/* TK is not needed anymore in supplicant */
 	os_memset(sm->ptk.tk, 0, WPA_TK_MAX_LEN);
-	sm->ptk.tk_len = 0;
 	sm->ptk.installed = 1;
 
 	/* FILS HLP Container */

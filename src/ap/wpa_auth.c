@@ -1728,16 +1728,6 @@ int wpa_auth_sm_event(struct wpa_state_machine *sm, enum wpa_event event)
 #else /* CONFIG_IEEE80211R_AP */
 		break;
 #endif /* CONFIG_IEEE80211R_AP */
-	case WPA_ASSOC_FILS:
-#ifdef CONFIG_FILS
-		wpa_printf(MSG_DEBUG,
-			   "FILS: TK configuration after association");
-		fils_set_tk(sm);
-		sm->fils_completed = 1;
-		return 0;
-#else /* CONFIG_FILS */
-		break;
-#endif /* CONFIG_FILS */
 	case WPA_DRV_STA_REMOVED:
 		sm->tk_already_set = FALSE;
 		return 0;
@@ -3941,14 +3931,6 @@ int wpa_auth_sta_wpa_version(struct wpa_state_machine *sm)
 int wpa_auth_sta_ft_tk_already_set(struct wpa_state_machine *sm)
 {
 	if (!sm || !wpa_key_mgmt_ft(sm->wpa_key_mgmt))
-		return 0;
-	return sm->tk_already_set;
-}
-
-
-int wpa_auth_sta_fils_tk_already_set(struct wpa_state_machine *sm)
-{
-	if (!sm || !wpa_key_mgmt_fils(sm->wpa_key_mgmt))
 		return 0;
 	return sm->tk_already_set;
 }
